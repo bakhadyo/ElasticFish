@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>माझी दाई — A Quality Guppy Farm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --dark: #141414;
+      --card: #1a1a1a;
+      --pink: #e8748a;
+      --pink-light: #f0a0b0;
+      --pink-dark: #c4506a;
+      --white: #ffffff;
+      --gray: #aaaaaa;
+      --border: rgba(232,116,138,0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span { color: var(--pink); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--pink); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 8rem 5rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      right: -10%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,116,138,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-bg-circle2 {
+      position: absolute;
+      left: -5%;
+      bottom: -10%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,116,138,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(232,116,138,0.1);
+      border: 1px solid var(--border);
+      color: var(--pink);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 0.3rem;
+      animation: fadeUp 0.8s ease 0.15s both;
+    }
+
+    .hero-title .pink { color: var(--pink); font-style: italic; }
+
+    .hero-nepali {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gray);
+      font-style: italic;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease 0.25s both;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--gray);
+      font-weight: 300;
+      max-width: 500px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.8s ease 0.35s both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.45s both;
+    }
+
+    .btn-primary {
+      background: var(--pink);
+      color: var(--white);
+      padding: 0.85rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--pink-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+      transform: translateY(-2px);
+    }
+
+    .hero-logo-area {
+      position: absolute;
+      right: 5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      animation: fadeUp 1s ease 0.5s both;
+    }
+
+    .logo-circle {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 3px solid var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9rem;
+      position: relative;
+      box-shadow: 0 0 60px rgba(232,116,138,0.2), 0 0 120px rgba(232,116,138,0.08);
+    }
+
+    .logo-circle::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,116,138,0.3);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateY(0px); }
+      50% { transform: translateY(-50%) translateY(-15px); }
+    }
+
+    .hero-logo-area { animation: float 4s ease-in-out infinite, fadeUp 1s ease 0.5s both; }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 5rem;
+      display: flex;
+      justify-content: center;
+      gap: 5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--gray);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* CATALOG */
+    .catalog {
+      padding: 7rem 5rem;
+    }
+
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--pink);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .section-title span { color: var(--pink); font-style: italic; }
+
+    .fish-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .fish-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1.8rem;
+      transition: all 0.35s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fish-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--pink);
+      transform: scaleX(0);
+      transition: transform 0.35s;
+    }
+
+    .fish-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .fish-card:hover::after { transform: scaleX(1); }
+
+    .fish-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .fish-care {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .care-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .care-easy { background: rgba(100,200,100,0.15); color: #80cc80; }
+    .care-medium { background: rgba(232,116,138,0.15); color: var(--pink); }
+    .care-hard { background: rgba(200,100,50,0.15); color: #e08050; }
+    .care-expert { background: rgba(150,100,200,0.15); color: #c090e0; }
+
+    .fish-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .fish-scientific {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-style: italic;
+      margin-bottom: 0.8rem;
+    }
+
+    .fish-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(170,170,170,0.8);
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .fish-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fish-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--pink);
+    }
+
+    .fish-price small {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .add-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--pink);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .add-btn:hover {
+      background: var(--pink);
+      color: var(--white);
+      border-color: var(--pink);
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 7rem 5rem;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-desc {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--gray);
+      font-weight: 300;
+      margin-top: 1.5rem;
+    }
+
+    .about-desc p { margin-bottom: 1rem; }
+
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .feature {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(232,116,138,0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-text p {
+      font-size: 0.88rem;
+      color: var(--gray);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* CONTACT */
+    .contact {
+      padding: 7rem 5rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact .section-header { text-align: center; }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--white);
+      padding: 0.9rem 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      border-color: var(--pink);
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(170,170,170,0.4);
+    }
+
+    .contact-form select option { background: var(--card); }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+
+    /* FOOTER */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--pink); }
+
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: rgba(170,170,170,0.5);
+      font-style: italic;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .social-btn:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--pink);
+      color: var(--white);
+      padding: 0.9rem 1.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      z-index: 999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-weight: 500;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 6rem 1.5rem 3rem; flex-direction: column; }
+      .hero-logo-area { position: relative; right: auto; top: auto; transform: none; margin: 2rem auto 0; animation: fadeUp 1s ease 0.5s both; }
+      .logo-circle { width: 220px; height: 220px; font-size: 6rem; }
+      .stats-bar { padding: 2rem 1.5rem; gap: 2rem; flex-wrap: wrap; }
+      .catalog, .about, .contact { padding: 4rem 1.5rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Majhi <span>Dai</span></div>
+    <ul class="nav-links">
+      <li><a href="#catalog">Our Fish</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🐠 Premium Guppy Farm — Kathmandu, Nepal</div>
+      <h1 class="hero-title">माझी <span class="pink">दाई</span></h1>
+      <p class="hero-nepali">A Quality Guppy Farm</p>
+      <p class="hero-desc">Nepal's finest ornamental fish — imported directly from Thailand's top breeders. From championship Guppies to rare Arowanas, we bring the world's most beautiful fish to your aquarium.</p>
+      <div class="hero-btns">
+        <a href="#catalog" class="btn-primary">Shop Fish</a>
+        <a href="#about" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-logo-area">
+      <div class="logo-circle">🐠</div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Fish Species</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Happy Customers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Thailand</div>
+      <div class="stat-label">Direct Import</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Live</div>
+      <div class="stat-label">Arrival Guarantee</div>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <section class="catalog" id="catalog">
+    <div class="section-header">
+      <span class="section-tag">Fresh Import</span>
+      <h2 class="section-title">Our <span>Fish Collection</span></h2>
+    </div>
+
+    <div class="fish-grid">
+      <div class="fish-card">
+        <span class="fish-icon">🐟</span>
+        <div class="fish-care">
+          <span class="care-tag care-easy">Easy Care</span>
+          <span class="care-tag care-medium">Community</span>
+        </div>
+        <h3 class="fish-name">Fancy Guppy</h3>
+        <div class="fish-scientific">Poecilia reticulata</div>
+        <p class="fish-desc">Our specialty! Championship-grade guppies imported from Thailand's top breeders. Vibrant tails, stunning colors — perfect for beginners and experts alike.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 150 <small>/ pair</small></div>
+          <button class="add-btn" onclick="addToCart('Fancy Guppy')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">🔴</span>
+        <div class="fish-care">
+          <span class="care-tag care-medium">Intermediate</span>
+          <span class="care-tag care-medium">Solo</span>
+        </div>
+        <h3 class="fish-name">Betta Fish</h3>
+        <div class="fish-scientific">Betta splendens</div>
+        <p class="fish-desc">The fighting fish of Thailand. Flowing fins, brilliant colors — Halfmoon, Crown Tail, and Dumbo ear variants available. A living jewel for any tank.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 400 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Betta Fish')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">🟡</span>
+        <div class="fish-care">
+          <span class="care-tag care-easy">Easy Care</span>
+          <span class="care-tag care-medium">Community</span>
+        </div>
+        <h3 class="fish-name">Goldfish</h3>
+        <div class="fish-scientific">Carassius auratus</div>
+        <p class="fish-desc">Fancy varieties including Oranda, Ryukin, and Ranchu. The classic aquarium fish — elegant, peaceful, and universally loved in Nepal.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 200 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Goldfish')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">🪸</span>
+        <div class="fish-care">
+          <span class="care-tag care-easy">Easy Care</span>
+          <span class="care-tag care-medium">Community</span>
+        </div>
+        <h3 class="fish-name">Molly & Platy</h3>
+        <div class="fish-scientific">Poecilia sphenops</div>
+        <p class="fish-desc">Colorful livebearers in black, gold, dalmatian and sunset varieties. Hardy, active, and perfect for community tanks. Great for beginners.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 80 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Molly & Platy')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">💙</span>
+        <div class="fish-care">
+          <span class="care-tag care-easy">Easy Care</span>
+          <span class="care-tag care-medium">Schooling</span>
+        </div>
+        <h3 class="fish-name">Neon Tetra</h3>
+        <div class="fish-scientific">Paracheirodon innesi</div>
+        <p class="fish-desc">A glowing blue-red streak in your tank. Best kept in schools of 10+. The most popular aquarium fish in the world — and for good reason.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 50 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Neon Tetra')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">⚡</span>
+        <div class="fish-care">
+          <span class="care-tag care-expert">Expert Only</span>
+          <span class="care-tag care-hard">Rare</span>
+        </div>
+        <h3 class="fish-name">Silver Arowana</h3>
+        <div class="fish-scientific">Osteoglossum bicirrhosum</div>
+        <p class="fish-desc">The dragon fish. A prehistoric, majestic predator that brings prestige to any large aquarium. Considered a symbol of good luck and prosperity.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 8,500 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Silver Arowana')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">🌈</span>
+        <div class="fish-care">
+          <span class="care-tag care-medium">Intermediate</span>
+          <span class="care-tag care-medium">Community</span>
+        </div>
+        <h3 class="fish-name">Angelfish</h3>
+        <div class="fish-scientific">Pterophyllum scalare</div>
+        <p class="fish-desc">Graceful, triangular, regal. Angelfish glide through the water like living art. Available in marble, silver, koi and black varieties.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 350 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Angelfish')">Add</button>
+        </div>
+      </div>
+
+      <div class="fish-card">
+        <span class="fish-icon">🐡</span>
+        <div class="fish-care">
+          <span class="care-tag care-hard">Advanced</span>
+          <span class="care-tag care-medium">Centerpiece</span>
+        </div>
+        <h3 class="fish-name">Flowerhorn</h3>
+        <div class="fish-scientific">Hybrid Cichlid</div>
+        <p class="fish-desc">Bold, personable, and utterly unique. Each Flowerhorn has a distinct hump and pattern — no two are the same. A conversation starter in any room.</p>
+        <div class="fish-footer">
+          <div class="fish-price">NPR 2,500 <small>/ fish</small></div>
+          <button class="add-btn" onclick="addToCart('Flowerhorn')">Add</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div>
+        <span class="section-tag">Who We Are</span>
+        <h2 class="section-title">Nepal's Trusted <span>Ornamental Fish</span> Importer</h2>
+        <div class="about-desc">
+          <p>Majhi Dai started as a passion project by a fish keeper who couldn't find quality ornamental fish in Nepal. Today we are Kathmandu's most trusted source for imported aquarium fish.</p>
+          <p>Every fish we sell is imported directly from certified breeders in Thailand — health checked, quarantined, and guaranteed to arrive alive.</p>
+        </div>
+      </div>
+      <div class="about-features">
+        <div class="feature">
+          <div class="feature-icon">✈️</div>
+          <div class="feature-text">
+            <h4>Direct Thailand Import</h4>
+            <p>We source directly from Thailand's top certified breeders — no middlemen, fresher fish, better prices.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🏥</div>
+          <div class="feature-text">
+            <h4>Health Quarantine</h4>
+            <p>Every fish goes through a 14-day quarantine and health check before being sold. Your tank stays disease-free.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📦</div>
+          <div class="feature-text">
+            <h4>Live Arrival Guarantee</h4>
+            <p>We guarantee your fish arrives alive. If it doesn't, we replace it. No questions asked.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎓</div>
+          <div class="feature-text">
+            <h4>Free Care Guidance</h4>
+            <p>New to fishkeeping? Our team guides you on tank setup, feeding, and maintenance — for free.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-header">
+      <span class="section-tag">Place Your Order</span>
+      <h2 class="section-title">Order From <span>Majhi Dai</span></h2>
+      <p style="color:var(--gray); font-size:1rem; margin-top:0.8rem; font-weight:300;">Custom orders, bulk purchases, or just want to ask about a fish — we are always here.</p>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Your name" />
+        <input type="tel" placeholder="Phone number" />
+      </div>
+      <input type="email" placeholder="Email address" />
+      <select>
+        <option value="" disabled selected>What are you interested in?</option>
+        <option>Fancy Guppy</option>
+        <option>Betta Fish</option>
+        <option>Goldfish</option>
+        <option>Arowana</option>
+        <option>Angelfish</option>
+        <option>Flowerhorn</option>
+        <option>Other / Custom Order</option>
+      </select>
+      <textarea placeholder="Tell us what you need — quantity, variants, budget..."></textarea>
+      <button class="btn-primary" style="border:none; width:100%; padding:1rem; font-size:0.95rem;" onclick="submitForm()">Send Order Request</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo">Majhi <span>Dai</span> 🐠</div>
+      <div class="footer-tagline" style="margin-top:0.4rem;">A Quality Guppy Farm — Kathmandu, Nepal</div>
+    </div>
+    <div class="footer-tagline">Powered by AWS & a Mighty Nepali Fisherman ☁</div>
+    <div class="footer-social">
+      <a class="social-btn" href="#">📘</a>
+      <a class="social-btn" href="#">📸</a>
+      <a class="social-btn" href="#">💬</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function addToCart(fish) {
+      showToast(fish + ' added to cart!');
+    }
+
+    function submitForm() {
+      showToast('Order request sent! We will contact you soon.');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fish-card, .feature, .stat-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
